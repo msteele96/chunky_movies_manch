@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require "chunky_movies_manch"
+require "./lib/chunky_movies_manch.rb"
 
-CLI.hello_world
+CLI.new.showings
