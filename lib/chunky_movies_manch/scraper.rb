@@ -12,8 +12,13 @@ class Scraper
                 film[:rating] = info.search("h5").search("div").text.strip
                 film[:title] = info.search("h5").search("a").children[0].text.strip
                 film[:synopsis] = info.search("div.row.text-left").text.gsub("... READ MORE","")
-                # film[:showtimes] = info.search("a.btn")
-                film[:showtimes] = "time"
+                showtimes_ary = info.text.scan(/(\d+:\d+[ap]m)/)
+                film[:showtimes] = ""
+                showtimes_ary.each do |time|
+                    film[:showtimes] << "#{time[0]} "
+                    # binding.pry
+                end
+                # binding.pry
                 @movie_ary << film
             end
         return @movie_ary

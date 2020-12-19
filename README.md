@@ -1,8 +1,6 @@
 # ChunkyMoviesManch
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/chunky_movies_manch`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem allows you to use a CLI to get the info about the movies that are playing today at any location of Chunky's Cinema Pub (a small movie theatre chain in NH).
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To see what movies are playing today, run bin/movies then follow the prompts in the CLI.
 
 ## Development
 
@@ -32,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/chunky_movies_manch.
+Bug reports and pull requests are welcome on GitHub at https://github.com/msteele96/chunky_movies_manch.
 
 
 ## License

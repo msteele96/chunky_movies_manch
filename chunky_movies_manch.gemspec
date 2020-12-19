@@ -6,8 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["msteele96"]
   spec.email         = ["marcsteele2014@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = "This gem allows you to use a CLI to get the info about the movies that are playing today at Chunky's Cinema Pub."
   spec.homepage      = "https://github.com/msteele96/chunky_movies_manch"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
