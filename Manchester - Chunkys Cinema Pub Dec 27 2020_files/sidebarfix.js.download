@@ -1,0 +1,50 @@
+
+(function($){
+
+var equalize = function(){
+
+	$('.row-eq-sidebar > div').each(function(){
+		$(this).css({'height' : 'auto'});
+	});
+	
+	// add space to bottom of checkout
+	var page = $(location).attr('href')
+	if( page.indexOf("checkout") > 0 ) {
+		var rowHeight = $('.row-eq-sidebar').height() + 300;
+		console.log( 'IS checkout' );
+	} else {
+		var rowHeight = $('.row-eq-sidebar').height();
+		console.log( 'NOT checkout' );
+	}	
+
+	$('.row-eq-sidebar > div.mainbar').css({'height' : rowHeight});
+	$('.row-eq-sidebar > div.sidebar').css({'height' : rowHeight});
+
+}
+
+$(document).ready(function(){
+	equalize();
+$('.ufaq-faq-title').click(function(){
+	console.log('it worked #1')
+	equalize();
+	console.log('it worked #2')
+
+});
+});
+
+
+$(window).load(function(){
+	equalize();
+});
+
+$(window).resize(function(){
+	equalize();
+});
+
+
+$(window).toggle(function(){
+	console.log('toggle faq'); 
+	equalize();
+});
+
+})(jQuery)

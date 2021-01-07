@@ -1,25 +1,23 @@
 class CLI
 
     def showings
-        manchester = Scraper.new.today("manchester")
-        nashua = Scraper.new.today("nashua")
-        pelham = Scraper.new.today("pelham")
         current_location = ""
         input = "locations"
         until input.downcase == "exit"
             loc_input = true
-            if input.to_i > 0 && input.to_i <= current_location.length
-                puts "#{current_location[input.to_i-1][:synopsis]}"
+            if input.to_i > 0 && input.to_i <= current_location.films.length
+                puts "#{current_location.films[input.to_i-1].synopsis}"
             elsif input == "locations"
-                @location = location
+                @location = location_valid
                 input = "list"
                 case @location
                 when "Manchester"
-                    current_location = manchester
+                    current_location = MANCHESTER
+                    # FOR TESTING PURPOSES
                 when "Nashua"
-                    current_location = nashua
+                    current_location = NASHUA
                 when "Pelham"
-                    current_location = pelham
+                    current_location = PELHAM
                 when "Exit"
                     input = "exit"
                 end
@@ -27,11 +25,10 @@ class CLI
             elsif input == "list"
                 puts "Today's showings for the #{@location} location are:"
                 i = 0
-                current_location.length.times do
-                    puts "#{i+1}. #{current_location[i][:title]}, #{current_location[i][:rating]}, Showtimes: #{current_location[i][:showtimes]}"
+                current_location.films.length.times do
+                    puts "#{i+1}. #{current_location.films[i].title}, #{current_location.films[i].rating}, Showtimes: #{current_location.films[i].showtimes}"
                     i+=1
                 end
-                # fix showtime button text
                 puts "What movie would you like to read the synopsis of?"
                 puts "Choose a number above, list to see the options again, locations to choose a new location, or exit to leave."
             else    
@@ -44,22 +41,33 @@ class CLI
         puts "Enjoy your night at the movies!"
     end
 
-    def location
+    # def location
+    #     puts "What Chunky's location are you going to? (Manchester, Nashua, Pelham)"
+    #     theatre = gets.strip.capitalize
+    #     case theatre
+    #     when "Nashua"
+    #         return theatre
+    #     when "Pelham"
+    #         return theatre
+    #     when "Manchester"
+    #         return theatre
+    #     when "Exit"
+    #         return theatre
+    #     else
+    #         puts "Enter a valid location."
+    #         location
+    #     end
+    # end
+
+    def location_valid
         puts "What Chunky's location are you going to? (Manchester, Nashua, Pelham)"
         theatre = gets.strip.capitalize
-        case theatre
-        when "Nashua"
-            return theatre
-        when "Pelham"
-            return theatre
-        when "Manchester"
-            return theatre
-        when "Exit"
-            return theatre
-        else
-            puts "Enter a valid location."
-            location
+        valid = ["Manchester", "Nashua", "Pelham", "Exit"]
+        unless valid.include?(theatre)
+            puts "Enter a valid location"
+            location_valid
         end
+        theatre
     end
 
 end

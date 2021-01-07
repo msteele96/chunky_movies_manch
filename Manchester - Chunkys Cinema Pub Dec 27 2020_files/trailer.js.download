@@ -1,0 +1,25 @@
+(function($){
+	$(document).ready(
+		
+		function(){
+			$('.trailerbutton').click(
+				function(event){
+					event.preventDefault();
+					$('.trailer-shroud').append( trailerurl);
+					
+					$('.trailer-shroud').fadeIn();
+					
+				}
+			);
+
+			$('.trailer-shroud').on('click' , '.trailer-container .glyphicon-remove',
+				function(event){
+					event.preventDefault();
+					$('.trailer-shroud').fadeOut();
+					$('.trailer-shroud').find( '.trailer-container' ).remove();
+				}
+			);
+		}
+	);
+
+})(jQuery);

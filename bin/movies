@@ -2,4 +2,10 @@
 
 require "./lib/chunky_movies_manch.rb"
 
+MANCHESTER = Location.new("Manchester").scrape
+NASHUA = Location.new("Nashua").scrape
+PELHAM = Location.new("Pelham").scrape
+# SAVED = Location.new("Saved").scrape
+
+
 CLI.new.showings

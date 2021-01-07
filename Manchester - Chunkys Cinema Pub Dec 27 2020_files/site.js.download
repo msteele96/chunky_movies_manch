@@ -1,0 +1,29 @@
+
+(function($){
+	$(document).ready(function(){
+
+        // send event to google
+		$('a.phone-cta').click(function(e){
+			e.preventDefault();
+            
+            console.log('TEST: Phone Link Clicked');
+            
+            var ga_label  = document.location.pathname;
+            var ga_value  = null;
+			var ga_cat    = 'CTA Phone';
+            var ga_action = 'Click to Call';
+            
+            console.log('TEST: Vars set');
+            
+            // Google Analytics Event - Send Phone Link Clicked  -->
+            ga( 'send', 'event', ga_cat, ga_action, ga_label, ga_value );
+            
+            // Google Adwords Conversion -  CTA Phone Link Clicked -->
+            gtag('event', 'conversion', {'send_to': 'AW-834524211/Um7nCIHbwnsQs6j3jQM'});
+
+            console.log('TEST: Phone Link Event Sent');
+		});        
+    
+    });
+
+})(jQuery);

@@ -1,0 +1,128 @@
+(function($){
+
+	var widget = (function(){
+		
+		_update_select = function( day_val, theatre_index ){
+			$('.widget-day').hide();
+
+			_switch_theatre( theatre_index );
+			$('.widget-day[data-day="' + day_val + '"]').show( 0, _adjust_screen );
+			$(window).trigger('resize');
+                        
+                        _reset_theater( day_val, theatre_index );
+		};
+
+		
+
+		_reset_theater  = function( day_val, theatre_index ) {
+			
+			// for each day piker
+			$('.day_picker_container .veezi_select.day_picker').each( function(){
+				
+				// find a good starting date
+				var theatre_start_day = $('.veezi_select.day_picker[data-theatre="' + $(this).attr('data-theatre') + '"] option:first' ).val() 
+
+				// don't update the current theatre
+				if( $(this).attr('data-theatre') != theatre_index ) { 
+					
+					// turn off all of the days at this theatre
+					$('.widget-theatre.day_container[data-theatre="' + $(this).attr('data-theatre') + '"] .widget-day').hide();
+
+					// select proper in day picker dropdown
+					$('.veezi_select.day_picker[data-theatre="' + $(this).attr('data-theatre') + '"] option[value="' + theatre_start_day + '"]' ).attr( 'selected','true' );
+
+					// display the  proper day's movies for this theatre
+					$('.widget-theatre.day_container[data-theatre="' + $(this).attr('data-theatre') + '"] .widget-day[data-day=' + theatre_start_day + ']').show( 0 );	        // display the "theatre_start_day" day of movies
+				}
+
+			});
+
+		};
+
+		_update_theatre = function( theatre_index ){
+			// hide all theatres
+			$('.widget-theatre').hide();
+			
+                        // show the proper theatre
+			$('.widget-theatre[data-theatre="' + theatre_index + '"]').show( 0, _adjust_screen );
+		};
+
+		_adjust_screen = function(){
+			$(window).trigger('resize');
+		};
+
+		_update_calendar = function( theatre ){
+			
+			$('.timesbox .theatre-calendar').removeClass('active');
+			$('.timesbox .calendar-switch').removeClass('active');
+
+			$('.timesbox .theatre-calendar[data-theatre="'+ theatre +'"]').addClass('active');
+			$('.timesbox .calendar-switch[data-theatre="'+ theatre +'"]').addClass('active');
+
+			_update_cookie( theatre );
+			_adjust_screen();
+		};
+
+		_switch_theatre = function( theatre ){
+			_update_theatre( theatre );
+
+			// change theater tabs
+			$('#theatre_select a.active').removeClass('active');
+			$('#theatre_select a[data-value='+ theatre +']').addClass('active');
+			
+			// remove the current theater's picker
+			$('.picker.active').removeClass('active');
+
+			// show the new theater's picker
+			$('.picker[data-theatre="' + theatre + '"]').addClass('active');
+
+			_update_cookie( theatre );
+		};
+
+		_update_cookie = function( theatre ){
+            // return false; // no cookie; user must actively click to display theatre movies times
+            document.cookie = 'theatre=' + theatre + ';path=/'; // remember and sync sidebar and theatre timebox
+		}
+
+		_assign_handlers = function(){	
+
+                        // tab clicked
+                        $('#theatre_select a').click(function(e){ 	
+				e.preventDefault();
+				_switch_theatre( $(e.target).attr('data-value') );
+			});
+
+
+                        // changed date picker
+			$('.veezi_select').change(function(e){ _update_select( $(this).val(), $(this).attr('data-theatre') );});
+
+			// could be legacy code (TBD 2016-04-10)
+			$('.calendar-switch').click(function(){
+				var theatreID = $(this).attr('data-theatre');
+				_update_calendar( theatreID );	
+			});
+
+			// changed movie picer pull down
+			$('select.picker').change(function(){ document.location = $(this).val(); });
+
+		};
+
+		return {
+			
+			init: function(){
+				_update_theatre( $('#theatre_select').find('a.active').attr('data-value') );
+				// ask tracy about .val() - how is this used on init?
+				_update_select( $('.veezi_select').val(), $('#theatre_select').find('a.active').attr('data-value') );
+				_assign_handlers();
+			}
+
+		}
+
+	})();
+	
+	$(document).ready(function(){
+		widget.init();
+		$('.constantcontactwidget_form input[name="eml"]').attr('placeholder' , "Enter Email Address");
+	});
+
+})(jQuery);

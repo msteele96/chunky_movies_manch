@@ -1,0 +1,31 @@
+(function($){
+	$(document).ready(function(){
+
+        // open submens on mobile phone
+		$('a.dropdown-toggle').click(function(e){
+			e.preventDefault();
+		$(this).toggleClass('open');
+		});        
+
+        // show coupon/comp pass
+		$('.coupon').click(function(e){
+		$(this).toggleClass('open');
+		});
+	
+        // show/hide restrictions for deals
+		$('#toggle-restrictions').click(function(e){
+		    $('#deal-restrictions').slideToggle();
+            $(this).toggleClass('open');
+		});
+        
+        // movie details (e.g. synopsis on signle movie)
+		$('.toggle-more-film-info').click(function(e){
+		    e.preventDefault();
+            $(this).next().fadeIn();
+            $(this).toggleClass('open').html('');
+            $(window).trigger('resize');
+		});        
+    
+    });
+
+})(jQuery);
