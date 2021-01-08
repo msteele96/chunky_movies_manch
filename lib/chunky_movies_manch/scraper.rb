@@ -1,8 +1,6 @@
 class Scraper
 
-    attr_accessor :movie_ary, :title, :showtimes, :rating, :synopsis
-
-    def today(site)
+    def today(site, object)
         doc = Nokogiri::HTML(open("https://www.chunkys.com/theatre/#{site}/now-showing/"))
         # file = File.read('/mnt/c/users/marcs/dev/flatiron/chunky_movies_manch/Manchester - Chunkys Cinema Pub Dec 27 2020.html')
         # doc = Nokogiri::HTML(file)
@@ -19,7 +17,7 @@ class Scraper
                 showtimes_ary.each do |time|
                     film.showtimes << "#{time[0]} "
                 end
-                film.location = $LOCATION
+                film.location = object
                 film.add_to_location(film.location)
                 film
             end

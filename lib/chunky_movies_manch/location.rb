@@ -5,16 +5,13 @@ class Location
     @@locations = []
 
     def initialize(site)
-        # $LOCATION = ""
         @site = site
         @films = []
         @@locations << self
-        $LOCATION = self
-
     end
 
     def scrape
-        Scraper.new.today(site)
+        Scraper.new.today(site, self)
         self
     end
 

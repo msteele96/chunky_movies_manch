@@ -7,5 +7,4 @@ NASHUA = Location.new("Nashua").scrape
 PELHAM = Location.new("Pelham").scrape
 # SAVED = Location.new("Saved").scrape
 
-
 CLI.new.showings

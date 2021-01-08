@@ -11,7 +11,6 @@ class CLI
                 @location = location_valid
                 input = "list"
                 set_current_location
-                binding.pry
                 loc_input = false
             elsif input == "list"
                 list_showings
@@ -28,22 +27,22 @@ class CLI
     def location_valid
         puts "What Chunky's location are you going to? (Manchester, Nashua, Pelham)"
         theatre = gets.strip.capitalize
-        valid = ["Manchester", "Nashua", "Pelham", "Exit"]
-        unless valid.include?(theatre)
+        valid = [MANCHESTER.site, NASHUA.site, PELHAM.site, "Exit"]
+        if valid.include?(theatre)
+            theatre
+        else
             puts "Enter a valid location"
             location_valid
         end
-        theatre
     end
 
     def set_current_location
         case @location
-        when "Manchester"
+        when MANCHESTER.site
             @current_location = MANCHESTER
-            # FOR TESTING PURPOSES
-        when "Nashua"
+        when NASHUA.site
             @current_location = NASHUA
-        when "Pelham"
+        when PELHAM.site
             @current_location = PELHAM
         when "Exit"
             input = "exit"
@@ -51,7 +50,7 @@ class CLI
     end
 
     def list_showings
-        puts "Today's showings for the #{@location} location are:"
+        puts "Today's showings for the #{@current_location.site} location are:"
         i = 0
         @current_location.films.length.times do
             puts "#{i+1}. #{@current_location.films[i].title}, #{@current_location.films[i].rating}, Showtimes: #{@current_location.films[i].showtimes}"
