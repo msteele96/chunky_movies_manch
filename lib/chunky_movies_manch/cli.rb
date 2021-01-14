@@ -51,10 +51,8 @@ class CLI
 
     def list_showings
         puts "Today's showings for the #{@current_location.site} location are:"
-        i = 0
-        @current_location.films.length.times do
-            puts "#{i+1}. #{@current_location.films[i].title}, #{@current_location.films[i].rating}, Showtimes: #{@current_location.films[i].showtimes}"
-            i+=1
+        @current_location.films.each.with_index(1) do |film, index|
+            puts "#{index}. #{film.title}, #{film.rating}, Showtimes: #{film.showtimes}"
         end
         puts "What movie would you like to read the synopsis of?"
         puts "Choose a number above, list to see the options again, locations to choose a new location, or exit to leave."

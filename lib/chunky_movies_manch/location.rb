@@ -1,6 +1,6 @@
 class Location
 
-    attr_accessor :site, :films
+    attr_reader :films, :site
 
     @@locations = []
 
